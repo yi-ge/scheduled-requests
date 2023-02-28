@@ -25,9 +25,6 @@
       .form-check {
         margin-bottom: 10px;
       }
-      .interval-form-group {
-        display: none;
-      }
       .cron-form-group {
         display: none;
       }
@@ -87,8 +84,7 @@
                 <div class="form-group">
                   <label for="method-select">请求方式</label>
                   <select class="form-control" id="method-select" required>
-                    <option value="">请选择</option>
-                    <option value="GET">GET</option>
+                    <option value="GET" select="select">GET</option>
                     <option value="POST">POST</option>
                   </select>
                 </div>
@@ -142,7 +138,11 @@
                     <input type="text" class="form-control" id="cron-input" />
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block"
+                  style="margin-top: 10px"
+                >
                   添加任务
                 </button>
               </form>
