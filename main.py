@@ -5,6 +5,7 @@ import json
 import datetime
 from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from croniter import croniter
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret-key'
@@ -52,11 +53,13 @@ def init_db():
                               args=(task[1], task[2], task[3]))
         elif task[5]:
             # cron任务
+            # 解析cron表达式
+            cron = croniter(task[5], datetime.datetime.now())
             scheduler.add_job(send_request,
                               'cron',
                               id=str(task[0]),
                               args=(task[1], task[2], task[3]),
-                              minute=task[5])
+                              next_run_time=cron.get_next(datetime.datetime))
 
     scheduler.start()
 
