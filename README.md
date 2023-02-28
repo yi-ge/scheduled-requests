@@ -29,5 +29,3 @@ Timed/interval initiation of HTTP requests.
 **博文：** <https://www.wyr.me/post/733>
 
 **视频：** <https://www.bilibili.com/video/BV1u84y1E79f/?share_source=copy_web&vd_source=de30ad927aff7c4075790b558eb50e56>
-
-<iframe src="//player.bilibili.com/player.html?aid=610130846&bvid=BV1u84y1E79f&cid=1031780759&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
