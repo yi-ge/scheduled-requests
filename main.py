@@ -148,11 +148,13 @@ def add_task():
                           seconds=seconds,
                           args=(url, method, params))
     elif cron:
+        # 解析cron表达式
+        cronObj = croniter(cron, datetime.datetime.now())
         scheduler.add_job(send_request,
                           'cron',
                           id=str(task_id),
                           args=(url, method, params),
-                          minute=cron)
+                          next_run_time=cronObj.get_next(datetime.datetime))
 
     return jsonify({'msg': 'Task added successfully'}), 201
 
