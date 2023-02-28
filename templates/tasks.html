@@ -224,6 +224,13 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script>
       $(function () {
+        // 页面加载时判断是否已经登录，如果未登录则跳转到登录页面
+        if (!localStorage.getItem('token')) {
+          alert('请先登陆')
+          // window.location.href = '/'
+          return
+        }
+
         // 显示或隐藏时间间隔和Cron表达式输入框
         $('input[name="interval-cron-radio"]').change(function () {
           if ($(this).val() === 'interval') {
@@ -314,6 +321,15 @@
         // 点击退出按钮，清除localStorage中的令牌并跳转到登录页面
         $('#logout-link').click(function (e) {
           e.preventDefault()
+          // 此代码将循环遍历所有 cookie，将其名称设置为空字符串，并将过期时间设置为过去的某个时间，使 cookie 立即过期并从客户端删除。请注意，由于同一站点中的 cookie 可能会使用不同的路径设置，因此在设置过期时间时需要包含路径参数（path=/）。
+          var cookies = document.cookie.split(';')
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i]
+            var eqPos = cookie.indexOf('=')
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
+            document.cookie =
+              name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+          }
           localStorage.removeItem('token')
           window.location.href = '/'
         })
@@ -388,11 +404,6 @@
               alert(xhr.responseText)
             },
           })
-        }
-
-        // 页面加载时判断是否已经登录，如果未登录则跳转到登录页面
-        if (!localStorage.getItem('token')) {
-          window.location.href = '/login'
         }
 
         // 刷新任务列表

@@ -1,6 +1,10 @@
-# scheduled-requests
+# ChatGPT完整实现定时请求小系统
 
 Timed/interval initiation of HTTP requests.
+
+![scheduledrequestschatgpt.png](https://cdn.wyr.me/post-files/2023-02-28/1677595282482/scheduled-requests-chatgpt.png)
+
+**由ChatGPT实现，中文描述：**
 
 使用python3实现一个定时请求服务，要求如下：
 1、数据库使用sqlite3，代码中需要处理数据库初始化，数据库存储的内容可能存在中文。
@@ -13,3 +17,9 @@ Timed/interval initiation of HTTP requests.
 8、默认账户密码为：admin、admin。
 
 请实现完整的python代码。
+
+**博文：** <https://www.wyr.me/post/733>
+
+**视频：** <https://www.bilibili.com/video/BV1u84y1E79f/?share_source=copy_web&vd_source=de30ad927aff7c4075790b558eb50e56>
+
+<iframe src="//player.bilibili.com/player.html?aid=610130846&bvid=BV1u84y1E79f&cid=1031780759&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
