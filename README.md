@@ -29,3 +29,5 @@ Timed/interval initiation of HTTP requests.
 **博文：** <https://www.wyr.me/post/733>
 
 **视频：** <https://www.bilibili.com/video/BV1u84y1E79f/?share_source=copy_web&vd_source=de30ad927aff7c4075790b558eb50e56>
+
+**提示：** 本文目的在于体现当时GPT3的能力，如有定时请求任务需求请使用成熟的任务调度系统。

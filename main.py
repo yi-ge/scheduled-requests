@@ -7,8 +7,10 @@ from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from croniter import croniter
 
+from utils import get_JWT_secret_KEY
+
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'super-secret-key'
+app.config['JWT_SECRET_KEY'] = get_JWT_secret_KEY()
 jwt = JWTManager(app)
 
 scheduler = BackgroundScheduler()
@@ -65,6 +67,7 @@ def init_db():
 
 
 def send_request(url, method, params):
+    r = None
     try:
         if method == 'GET':
             r = requests.get(url, params=params)
@@ -76,7 +79,7 @@ def send_request(url, method, params):
                 r = requests.post(url, data=params)
 
         # 处理请求结果
-        if r.status_code == 200:
+        if r is not None and r.status_code == 200:
             print('Request success: %s' % url)
         else:
             print('Request error: %s' % url)
@@ -96,8 +99,9 @@ def index():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+    data = request.get_json()
+    username = data.get('username', None)
+    password = data.get('password', None)
 
     # 校验用户名和密码
     if username == 'admin' and password == 'admin':
@@ -123,11 +127,11 @@ def logout():
 @jwt_required()
 def add_task():
     # 解析请求参数
-    url = request.json.get('url', None)
-    method = request.json.get('method', None)
-    params = request.json.get('params', None)
-    interval = request.json.get('interval', None)
-    cron = request.json.get('cron', None)
+    url = request.get_json().get('url', None)
+    method = request.get_json().get('method', None)
+    params = request.get_json().get('params', None)
+    interval = request.get_json().get('interval', None)
+    cron = request.get_json().get('cron', None)
 
     # 插入任务到数据库
     conn = sqlite3.connect('task.db')
@@ -162,7 +166,7 @@ def add_task():
 @app.route('/api/remove', methods=['POST'])
 @jwt_required()
 def remove_task():
-    task_id = request.json.get('id', None)
+    task_id = request.get_json().get('id', None)
 
     # 从数据库中删除任务
     conn = sqlite3.connect('task.db')
